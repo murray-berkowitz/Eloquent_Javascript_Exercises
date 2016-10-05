@@ -1,0 +1,48 @@
+<script type="text/javascript">
+
+	function arrayToList(arr){
+		var list = null;                          // initalizes list variable to equal null, so that the last "rest" object in the list doesn't point anywhere.                  
+		for (var i = arr.length-1; i >= 0; i--){  // Since we are adding our lists from the last list to the first list, we also iterate through our array of values backwards so the list/value pairs match
+			list = {                              
+				value: arr[i],
+				rest: list
+			}                                     // For the first (or technically last, if you wanna look at it that way) list that is created, as mentioned above, it will set the last index of the array to equal the "value" key of the list object, as well as have the "rest" key point to null. For each successive list created after, it does the same except now the current lists "rest" key now points to the previously created list, and so on and so forth until the array has been looped through. Difficult to explain xD
+		}
+		return list
+	}
+	function listToArray(list){
+		var array = [];                          //initializes empty array. duh :)
+		for(var i = list; i; i = i.rest){        
+			array.push(i.value);
+		}										//The fun part: What this loop does it sets the iterator to equal our passed list. On each round of the loop, it takes the value at the current list and pushes it to the array. And upon each completion of the loop, in a similar fashion to "i++", iterates to the next list in our linked list by setting "i" to equal "i.rest", which is where our pointer to the next list is stored. The for loop is exited once i fails to exist, aka when i.rest points to null.
+		return array;
+	}
+	function prepend(val, list){
+		return {
+			value:val, 
+			rest:list
+		};                        //Not as exciting, just a poverty version of the arrayToList function that lets you add just one value to the front of an already crafted list. it returns an object with the specified value, as well as a pointer to our passed list.
+	}
+	function returnNth(list, number){               //This one is pretty cool. Uses recursion to find the value at the nth node/list in our linked list.
+		if(!list){                                  //Here is our failsafe in case there isn't an nth list. I harshly tell you to GTFO so you get the memo hehe
+			return "aint no nth list get out";     
+		}else if (number == 0){                    //Where the magic happens, when we finally get to the list we were looking for and number == 0 (since as you'll see below our nth num is counting down) 
+			return list.value;                     //We return the value we were looking for :)
+		}
+		else {                                    
+			console.log("recurring...")
+			return returnNth(list.rest, number-1);     //And if we've yet to hit our nth list and list still exists, we recursively call the returnNth function this time passing the next list in the linked list, as well as subtracting our target number by 1 (so we know, of course, at which node we are up to)
+		} 
+	}
+
+	//And here's some proof of concept!
+
+	var array = [25,70,35];
+	console.log(arrayToList(array));
+	var myList = arrayToList(array);
+	console.log(listToArray(myList));
+	myList = prepend(41, myList);
+	console.log(myList);
+	console.log(returnNth(myList, 1));
+	console.log(listToArray(myList));
+</script>
