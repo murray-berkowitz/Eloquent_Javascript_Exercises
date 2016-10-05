@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	//Recursive function to check if number is even. Recursively calls the isEven function until the remainder is either 0 or 1.
+
+	function isEven(num){
+		if(num == 0){
+			return true;
+		}else if (num == 1){
+			return false;
+		}
+		else if(num < 0){
+			return "You're a f*@kface";
+		}
+		else if (isEven(num-2)){
+			return true;
+		}
+		else {
+			console.log("ayyy lmao")
+			return isEven(num%2);
+		}
+	}
+	console.log(isEven(-1));
+
+</script>
