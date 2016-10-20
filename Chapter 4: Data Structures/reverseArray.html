@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	//takes an array and iterates through the values backwards, pushing each to a new array. thus reversing the new one
+
+	function reverseArray(arr){
+		var newArr = [];
+		for (var i = arr.length-1; i >=0; i--){
+			newArr.push(arr[i]);
+		}
+		return newArr;
+	}
+
+	//function that does same as above but instead of creating a new array, reverses the order of the original array. Does this by iterating through half of the array length, and swapping the values of the current iteration in the array.
+
+	function reverseArrayInPlace(arr){
+		var shifted;
+		for(var i = 0; i < arr.length/2; i++){
+			shifted = arr[i];
+			arr[i] = arr[arr.length - 1 - i];
+			arr[arr.length-1-i] = shifted;
+		}
+	}
+	var array = ["hello", "goodbye", "later", "yo", "momma", "mayng"];
+	console.log(reverseArray(["a","b","c"]));
+	console.log(array);
+	reverseArrayInPlace(array);
+	console.log(array);
+</script>
